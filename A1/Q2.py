@@ -6,7 +6,7 @@ from tqdm import tqdm
 from matplotlib import pyplot as plt
 
 #We first take in the image as a grayscale (since otsu can only be applied on grayscale images)¡
-img_gs = cv2.imread("./leaf.png",0)
+img_gs = cv2.imread("./horse.jpeg",0)
 cv2.imshow("Grayscale Original Image",img_gs) 
 
 #We find the lowest and the highest values of the image's pixel intensities.
@@ -27,7 +27,7 @@ TSS = []
 
 min_tss = np.inf
 min_threshold = -1
-for threshold in range(low_intensity,high_intensity):
+for threshold in tqdm(range(low_intensity,high_intensity)):
     # The threshold divides the image into two classes - less than equal to the threshold and greater than the threshold.
     #We will first find the means in each class.
     class1 = hist[:threshold+1]
@@ -78,13 +78,13 @@ img_bi = np.array(img_bi,dtype=np.uint8)
 cv2.imshow("Binary Image",img_bi)
 
 #Saving the binary image.
-cv2.imwrite("leaf_binmask.png",img_bi)
+cv2.imwrite("horse_binmask.png",img_bi)
 
 #Saving the TSS values obtained in a CSV file.
 TSS_CSV = []
 for i in range(len(TSS)):
     TSS_CSV.append([int(i),TSS[i]])
-np.savetxt("leaf_tss.csv",TSS_CSV,delimiter=",")
+np.savetxt("horse_tss.csv",TSS_CSV,delimiter=",")
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
