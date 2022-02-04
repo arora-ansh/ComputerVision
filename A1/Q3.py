@@ -30,7 +30,6 @@ print("Number of frames in the video: ", frame_count)
 
 #Now we will find the pixel level median of all the frames.
 cv2.imwrite("./median.png",np.median(frames, axis=0))
-
 median = cv2.imread("./median.png")
 # cv2.imshow('Median Image', median)
 

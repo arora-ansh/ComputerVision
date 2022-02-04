@@ -83,8 +83,10 @@ for i in tqdm(range(m)):
             elif keys[1] == cur_pix_color_idx:
                 saliency_img[i][j] += color_dict[keys]*color_freq[keys[0]]
 
-cv2.imshow("Saliency Image Eqn3", 1-saliency_img)
-cv2.imwrite("saliency_leaf_eqn3.png", 255*saliency_img)
+saliency_min = np.amin(saliency_img)
+saliency_max = np.amax(saliency_img)
+cv2.imshow("Saliency Image Eqn3", saliency_img)
+cv2.imwrite("saliency_leaf_eqn3.png", 255*((saliency_img-saliency_min)/(saliency_max-saliency_min)))
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
