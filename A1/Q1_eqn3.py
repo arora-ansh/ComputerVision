@@ -28,7 +28,7 @@ def kmeans_segmenter(img, k, max_iter=50):
 
 #If above code has been run and kmeans_leaf.png exists, then run this
 img = cv2.imread("./kmeans_leaf.png")
-cv2.imshow("85 color Image",img)
+# cv2.imshow("85 color Image",img)
 
 #We now need to calculate the color distance metric for each pixel in the image. For this we simply find the distance between two color values used in the image, c_l and c_j.
 m = len(img)
@@ -56,8 +56,8 @@ for i in range(m):
 #Normalizing the color frequency
 color_freq = color_freq/np.sum(color_freq)
 #Plotting the color frequency for each of the colors of the image
-plt.bar(range(len(img_pixel_vals)), color_freq)
-plt.show()
+# plt.bar(range(len(img_pixel_vals)), color_freq)
+# plt.show()
 
 #We now create a dictionary to store the color distance metric for each color value.
 #We take the distance between colors to be Euclidean distance.
@@ -85,8 +85,8 @@ for i in tqdm(range(m)):
 
 saliency_min = np.amin(saliency_img)
 saliency_max = np.amax(saliency_img)
-cv2.imshow("Saliency Image Eqn3", saliency_img)
+# cv2.imshow("Saliency Image Eqn3", saliency_img)
 cv2.imwrite("saliency_leaf_eqn3.png", 255*((saliency_img-saliency_min)/(saliency_max-saliency_min)))
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()

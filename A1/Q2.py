@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 #We first take in the image as a grayscale (since otsu can only be applied on grayscale images)¡
 img_gs = cv2.imread("./horse.jpeg",0)
-cv2.imshow("Grayscale Original Image",img_gs) 
+# cv2.imshow("Grayscale Original Image",img_gs) 
 
 #We find the lowest and the highest values of the image's pixel intensities.
 low_intensity = np.amin(img_gs)
@@ -19,8 +19,8 @@ print(low_intensity, high_intensity)
 hist = cv2.calcHist([img_gs],[0],None,[256],[0,256])
 
 #We will now plot the histogram.
-plt.plot(hist)
-plt.show()
+# plt.plot(hist)
+# plt.show()
 
 #We create an array to store the TSS values obtained for each threshold, which we will then use to find the optimal threshold, and also store as a CSV.
 TSS = []
@@ -75,7 +75,7 @@ for i in range(len(img_gs)):
 
 #Showing the binary image.
 img_bi = np.array(img_bi,dtype=np.uint8)
-cv2.imshow("Binary Image",img_bi)
+# cv2.imshow("Binary Image",img_bi)
 
 #Saving the binary image.
 cv2.imwrite("horse_binmask.png",img_bi)
@@ -86,5 +86,5 @@ for i in range(len(TSS)):
     TSS_CSV.append([int(i),TSS[i]])
 np.savetxt("horse_tss.csv",TSS_CSV,delimiter=",")
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()

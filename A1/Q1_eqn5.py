@@ -30,7 +30,7 @@ def kmeans_segmenter(img, k, max_iter=50):
 color_img = cv2.imread("./kmeans_tree.png")
 # cv2.imshow("85 color Image",color_img)
 
-reg_img = cv2.imread("./bigtree_segged.png") #Image segmented by PEGBIS code
+reg_img = cv2.imread("./bigtree_segged4.png") #Image segmented by PEGBIS code
 # cv2.imshow("Segmented Image",reg_img)
 
 #We now need to calculate the color distance metric for each pixel in the image. For this we simply find the distance between two color values used in the image, c_l and c_j.
@@ -110,7 +110,7 @@ for i in range(len(region_count)):
 
 # We will now calculate the region distance between all combinations of regions, and store it as a dictionary of pairs
 region_dist = {}
-for i in range(len(region_color_list)):
+for i in tqdm(range(len(region_color_list))):
     for j in range(len(region_color_list)):
         if i==j:
             region_dist[(i,i)] = 0
@@ -138,8 +138,8 @@ for i in range(m):
 
 saliency_min = np.amin(saliency_img)
 saliency_max = np.amax(saliency_img)
-cv2.imshow("Saliency Image",saliency_img)
-cv2.imwrite("saliency_tree_eqn5.png",255*((saliency_img-saliency_min)/(saliency_max-saliency_min)))
+# cv2.imshow("Saliency Image",saliency_img)
+cv2.imwrite("saliency_tree_eqn5_2.png",255*((saliency_img-saliency_min)/(saliency_max-saliency_min)))
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()

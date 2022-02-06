@@ -66,7 +66,7 @@ for f in tqdm(range(frame_count)):
         center = int((width_left+width_right)/2), int((height_top+height_bottom)/2)
     
     #Drawing bounding circle on the ROI
-    circled_image = cv2.circle(frames[f],center,radius,(0,0,255),1)
+    circled_image = cv2.circle(frames[f],center,radius,(0,0,255),2)
     cv2.imwrite("./circled/%d.png" % (f+1), circled_image)
     
 #We will now stitch the images stored in circled together into a video.
