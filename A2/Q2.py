@@ -26,30 +26,34 @@ def modified_LBP(patch):
             lbp_val = 0
             C = zero_padded_patch[i][j]
             for k in range(8):
-                if k==0:
-                    N = zero_padded_patch[i][j-1]
-                    lbp_val += round(min(N,C)/max(N,C))*1
-                elif k==1:
-                    N = zero_padded_patch[i+1][j-1]
-                    lbp_val += round(min(N,C)/max(N,C))*2
-                elif k==2:
-                    N = zero_padded_patch[i+1][j]
-                    lbp_val += round(min(N,C)/max(N,C))*4
-                elif k==3:
-                    N = zero_padded_patch[i+1][j+1]
-                    lbp_val += round(min(N,C)/max(N,C))*8
-                elif k==4:
-                    N = zero_padded_patch[i][j+1]
-                    lbp_val += round(min(N,C)/max(N,C))*16
-                elif k==5:
-                    N = zero_padded_patch[i-1][j+1]
-                    lbp_val += round(min(N,C)/max(N,C))*32
-                elif k==6:
-                    N = zero_padded_patch[i-1][j]
-                    lbp_val += round(min(N,C)/max(N,C))*64
-                elif k==7:
-                    N = zero_padded_patch[i-1][j-1]
-                    lbp_val += round(min(N,C)/max(N,C))*128
+                try:
+                    if k==0:
+                        N = zero_padded_patch[i][j-1]
+                        lbp_val += round(min(N,C)/max(N,C))*1
+                    elif k==1:
+                        N = zero_padded_patch[i+1][j-1]
+                        lbp_val += round(min(N,C)/max(N,C))*2
+                    elif k==2:
+                        N = zero_padded_patch[i+1][j]
+                        lbp_val += round(min(N,C)/max(N,C))*4
+                    elif k==3:
+                        N = zero_padded_patch[i+1][j+1]
+                        lbp_val += round(min(N,C)/max(N,C))*8
+                    elif k==4:
+                        N = zero_padded_patch[i][j+1]
+                        lbp_val += round(min(N,C)/max(N,C))*16
+                    elif k==5:
+                        N = zero_padded_patch[i-1][j+1]
+                        lbp_val += round(min(N,C)/max(N,C))*32
+                    elif k==6:
+                        N = zero_padded_patch[i-1][j]
+                        lbp_val += round(min(N,C)/max(N,C))*64
+                    elif k==7:
+                        N = zero_padded_patch[i-1][j-1]
+                        lbp_val += round(min(N,C)/max(N,C))*128
+                except:
+                    lbp_val += 0 #Handles the NaN image pixel value edge case observed in 2 images for 3 pixels
+            # print(lbp_val)
             lbp[i-1][j-1] = lbp_val 
     
     #The lbp matrix now holds the lbp_values, we will now find the mean and standard deviation of the lbp values
@@ -115,20 +119,19 @@ total_feature_vector = []
 #Generate the feature vector for each of the images
 for i in tqdm(range(len(images))):
     # Reduce the image into dimensions of multiples of 4
-    images[i] = cv2.resize(images[i],(int(len(images[i])/4)*4,int(len(images[i][0])/4)*4))
+    images[i] = cv2.resize(images[i],(128,64))
     feature_vector = feature_extract(images[i])
     total_feature_vector.append(feature_vector)
 
 k = 5
 
+total_feature_vector = np.array(total_feature_vector)
+print(total_feature_vector.shape)
+
 fcm = FCM(n_clusters=k)
 fcm.fit(total_feature_vector)
 
-fcm_centers = fcm.centers
+fcm_centers = np.array(fcm.centers)
 
-print(fcm_centers)
-
-
-    
-    
+print(fcm_centers.shape)
 
