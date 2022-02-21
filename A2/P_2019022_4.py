@@ -5,6 +5,7 @@ from copy import *
 from tqdm import tqdm 
 from matplotlib import pyplot as plt
 import os
+from pathlib import Path
 
 # Read all the images in the folder data/dd
 
@@ -18,7 +19,7 @@ def load_images_from_folder(folder):
     return images
 
 images = load_images_from_folder("./data/dd")
-
+folder = "./data/dd"
 # We will find 10 corners using Shi-Thomsi https://docs.opencv.org/3.4/d4/d8c/tutorial_py_shi_tomasi.html in each of the images and store them in a list
 
 total_images_corner_vector = []
@@ -126,5 +127,24 @@ for lbp in total_lbp_features:
     errors.append(cur_error)
 
 #Now just sort and return the least k error images 
-print(errors)
+error_vector = []
+for i in range(len(errors)):
+    error_vector.append((errors[i],i))
+
+#We will now sort the error vector
+error_vector.sort()
+print(error_vector)
+
+error_vector = error_vector[:k]
+
+Path("./output/Q4").mkdir(parents=True, exist_ok=True)
+
+count = 0
+for filename in tqdm(os.listdir(folder)):
+    img = cv2.imread(os.path.join(folder,filename)) #Inputting images in grayscale
+    if img is not None:
+        for x in error_vector:
+            if x[1] == count:
+                cv2.imwrite("./output/Q4/"+filename,img)
+    count+=1
 

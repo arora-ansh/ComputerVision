@@ -6,6 +6,7 @@ from tqdm import tqdm
 from matplotlib import pyplot as plt
 import os
 from fcmeans import FCM
+from pathlib import Path
 
 def modified_LBP(patch):
     """
@@ -123,15 +124,29 @@ for i in tqdm(range(len(images))):
     feature_vector = feature_extract(images[i])
     total_feature_vector.append(feature_vector)
 
-k = 5
+k = 2 #Can change value of k from here
 
 total_feature_vector = np.array(total_feature_vector)
 print(total_feature_vector.shape)
 
 fcm = FCM(n_clusters=k)
 fcm.fit(total_feature_vector)
+fcm_labels = fcm.predict(total_feature_vector)
 
 fcm_centers = np.array(fcm.centers)
 
-print(fcm_centers.shape)
+# print(fcm_centers.shape)
+print(fcm_labels)
 
+#Creating the folders for the image clusters
+Path("./output/Q2").mkdir(parents=True, exist_ok=True)
+for i in range(k):
+    Path("./output/Q2/cluster_"+str(i+1)).mkdir(parents=True, exist_ok=True)
+
+count = 0
+for filename in os.listdir("./data/dd"):
+    img = cv2.imread(os.path.join("./data/dd",filename)) #Inputting images in grayscale
+    if img is not None:
+        cluster = fcm_labels[count]
+        cv2.imwrite("./output/Q2/cluster_"+str(cluster+1)+"/"+filename,img)
+        count += 1
