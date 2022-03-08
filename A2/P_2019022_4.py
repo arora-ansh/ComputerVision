@@ -27,7 +27,7 @@ total_lbp_features = []
 
 for img in tqdm(images):
     img = cv2.resize(img,(128,64))
-    corners = cv2.goodFeaturesToTrack(img,5,0.01,10)
+    corners = cv2.goodFeaturesToTrack(img,10,0.01,10)
     corners = np.int0(corners)
     total_images_corner_vector.append(corners)
 
@@ -76,7 +76,7 @@ for img in tqdm(images):
 
 query_img = cv2.imread("./data/15_19_s.jpg",0)
 query_img = cv2.resize(query_img,(128,64))
-query_corners = cv2.goodFeaturesToTrack(query_img,15,0.01,5)
+query_corners = cv2.goodFeaturesToTrack(query_img,10,0.01,10)
 query_corners = np.int0(query_corners)
 
 query_lbp_features = []
@@ -115,7 +115,7 @@ for corner in query_corners:
     else:
         query_lbp_features.append(0)
 
-k = 5
+k = int(input("Enter Value for k:"))
 
 errors = []
 

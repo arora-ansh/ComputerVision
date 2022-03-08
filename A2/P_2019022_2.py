@@ -124,7 +124,7 @@ for i in tqdm(range(len(images))):
     feature_vector = feature_extract(images[i])
     total_feature_vector.append(feature_vector)
 
-k = 2 #Can change value of k from here
+k = int(input("Enter value for k:")) #Can change value of k from here
 
 total_feature_vector = np.array(total_feature_vector)
 print(total_feature_vector.shape)

@@ -45,7 +45,7 @@ for i in range(len(total_feature_vector)):
 print("Length of visual words: ",len(visual_words))
 # Each patch's HoG has now been stored into a list of visual words
 # We will now find the k top words using K-Means clustering, which form the bag of visual words final dictionary
-k = 10 
+k = int(input("Enter Value of k: "))
 kmeans = KMeans(n_clusters=k, random_state=0).fit(visual_words)
 
 visual_words_dictionary = kmeans.cluster_centers_
