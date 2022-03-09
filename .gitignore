@@ -131,3 +131,6 @@ dmypy.json
 .DS_Store
 A2/data/DUTS/DUTS-TE/DUTS-TE-Image/ILSVRC2012_test_00000003.jpg
 A2/2019022_Assignment_2.zip
+
+*.jpg
+*.png
