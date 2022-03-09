@@ -29,6 +29,7 @@ nor_X = X / np.array([m, n, 255, 255, 255])
 # to see how long it takes to run.
 for x in tqdm(range(1,21)):
 
+    # https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html https://stackoverflow.com/questions/40142835/image-not-segmenting-properly-using-dbscan 
     t = time.time()
     db = DBSCAN(eps=0.0025*x, min_samples=5, metric='euclidean').fit(nor_X)
     print("Time taken:", time.time() - t)
