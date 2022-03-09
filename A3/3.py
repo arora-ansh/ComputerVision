@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/16V-NSSTUONzN3164PTsjCCr95yCPy42-
 """
 
-!pip install opencv-contrib-python==3.4.2.17
+# !pip install opencv-contrib-python==3.4.2.17
 
 # Commented out IPython magic to ensure Python compatibility.
 # https://github.com/deepanshut041/feature-detection/blob/master/surf/surf.ipynb 
